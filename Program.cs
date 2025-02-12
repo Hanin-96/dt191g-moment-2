@@ -30,6 +30,16 @@ namespace moment2
                 pattern: "{controller=Home}/{action=Index}/{id?}")
                 .WithStaticAssets();
 
+            app.MapControllerRoute(
+                name: "pokemon",
+                pattern: "{controller=Pokemon}/{action=Pokemon}/{id?}")
+                .WithStaticAssets();
+
+            app.MapControllerRoute(
+                name: "convert",
+                pattern: "{controller=Convert}/{action=Convert}/{id?}")
+                .WithStaticAssets();
+
             app.Run();
         }
     }
