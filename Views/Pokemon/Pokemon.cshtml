@@ -11,20 +11,28 @@
     <label id="hp">Hp:</label>
     <input type="number" name="hp" value="" />
 
-    <label id="rarity">Rarity:</label>
+    <label id="rarity">Sällsynhet:</label>
     <select name="rarity">
-        <option value="Common">Common</option>
-        <option value="Rare">Rare</option>
+        <option value="Vanligt">Vanligt</option>
+        <option value="Sällsynt">Sällsynt</option>
     </select>
 
     <input type="submit" value="Skicka" />
+
+    @if (ViewBag.Error != null)
+    {
+    <p>@ViewBag.Error</p>
+    }
 </form>
 
 @{
+    <h2>Pokémon lista:</h2>
     foreach (PokemonModel pokemon in @ViewData["pokemonList"] as List<PokemonModel> ?? new List<PokemonModel>())
     {
-        <span>@pokemon.name</span>
-        <span>@pokemon.hp</span>
-        <span>@pokemon.rarity</span>
+        <ul class="pokemon-list">
+            <li><span class="pokemon-text">Namn:</span> @pokemon.name</li>
+            <li><span class="pokemon-text"> Hp:</span> @pokemon.hp</li>
+            <li><span class="pokemon-text"> Sällsynthet:</span> @pokemon.rarity</li>
+        </ul>
     }
 }

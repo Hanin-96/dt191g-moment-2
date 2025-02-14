@@ -1,0 +1,11 @@
+﻿.pokemon-list {
+    list-style: none;
+    background-color: #f1f1f1;
+    padding: 1rem;
+    box-shadow: 1px 1px 5px -3px #000000;
+    margin: 1rem 0 2rem 0;
+}
+
+.pokemon-text {
+    font-weight: bold;
+}

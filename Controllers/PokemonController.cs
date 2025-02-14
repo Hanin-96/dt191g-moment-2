@@ -20,7 +20,7 @@ namespace moment2.Controllers
         {
             string pokemonCookie = HttpContext.Request.Cookies["pokemonList"] ?? "[]";
             return JsonSerializer.Deserialize<List<PokemonModel>>(pokemonCookie) ?? new List<PokemonModel>();
-            
+
         }
 
         //Spara Pokemon lista i pokemonCookien
@@ -44,13 +44,32 @@ namespace moment2.Controllers
         public IActionResult PokemonPost(string name, int hp, string rarity)
         {
             var pokemonList = GetPokemonList();
+            ViewBag.Error = "";
+            //Validerar input värden
+            if (name == null || (name.Length == 0 && hp == 0))
+            {
+                ViewBag.Error = "Fyll i alla fält";
+            }
+            else if (name == null || (name.Length == 0 && name.Length > 2))
+            {
+                ViewBag.Error = "Titel på Pokémon måste vara minst 2 tecken";
+            }
+            else if (hp <= 0)
+            {
+                ViewBag.Error = "Hp måste vara större än 0";
+            }
+            else
+            {
+                //Lägger till ny Pokemon till Pokemonlistan
+                pokemonList.Add(new PokemonModel { name = name, hp = hp, rarity = rarity });
 
-            //Lägger till ny Pokemon till Pokemonlistan
-            pokemonList.Add(new PokemonModel { name = name, hp = hp, rarity = rarity });
+                SavePokemonList(pokemonList);
+                return RedirectToAction("Pokemon");
+            }
 
-            SavePokemonList(pokemonList);
-
-            return RedirectToAction("Pokemon");
+            //Sätter Viewdata till Pokemon listan
+            ViewData["pokemonList"] = pokemonList;
+            return View("Pokemon");
         }
     }
 }

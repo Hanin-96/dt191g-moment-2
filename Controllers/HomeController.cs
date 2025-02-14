@@ -13,7 +13,7 @@ namespace moment2.Controllers
             var welcomeInfo = new InfoModel
             {
                 title = "Välkommen till Moment 2",
-                description = "Lorem ipsum",
+                description = "Pokemon innehåll",
                 date = DateTime.Today
             };
 
