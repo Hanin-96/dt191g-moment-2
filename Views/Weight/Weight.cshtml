@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Weight";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Pikachus i vikt</h1>
+    <form action="Weight" method="post">
+        <label>Hur många Pikachus väger du?</label>
+        <input type="number" name="kilos" value="" />
+        <input type="submit" value="Konvertera" />
+    </form>
+</div>
+
+<div>
+    @{
+        if (ViewBag.Pikachu != null)
+        {
+            <p>Du väger lika mycket som @ViewBag.Pikachu Pikachus i vikt!</p>
+        }
+        else if (ViewBag.Error != null)
+        {
+            <p>@ViewBag.Error</p>
+        }
+    }
+</div>

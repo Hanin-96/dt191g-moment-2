@@ -4,13 +4,27 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<form>
+<form action="PokemonPost" method="post">
     <label id="name">Titel:</label>
     <input type="text" name="name" value="" />
 
     <label id="hp">Hp:</label>
-    <input type="number" name="description" value="" />
+    <input type="number" name="hp" value="" />
 
-    <input type="submit" name="btn-submit" value="Skicka" />
+    <label id="rarity">Rarity:</label>
+    <select name="rarity">
+        <option value="Common">Common</option>
+        <option value="Rare">Rare</option>
+    </select>
 
+    <input type="submit" value="Skicka" />
 </form>
+
+@{
+    foreach (PokemonModel pokemon in @ViewData["pokemonList"] as List<PokemonModel> ?? new List<PokemonModel>())
+    {
+        <span>@pokemon.name</span>
+        <span>@pokemon.hp</span>
+        <span>@pokemon.rarity</span>
+    }
+}
