@@ -23,28 +23,16 @@ namespace moment2.Controllers
 
         }
 
-        //Spara Pokemon lista i pokemonCookien
-        private void SavePokemonList(List<PokemonModel> pokemonList)
-        {
-            //Serialiserar listan till json sträng
-            var pokemonListJson = JsonSerializer.Serialize(pokemonList);
-
-            //Lägger till Pokemon Cookie och uppdaterar pokemonList
-            HttpContext.Response.Cookies.Append("pokemonList", pokemonListJson, new CookieOptions
-            {
-                //Cookien går ut om 60min
-                Expires = DateTimeOffset.UtcNow.AddMinutes(60),
-                HttpOnly = true,
-                IsEssential = true
-            });
-        }
-
         //Tar emot name, hp och rarity från Pokemon modellen
         [HttpPost]
         public IActionResult PokemonPost(string name, int hp, string rarity)
         {
             var pokemonList = GetPokemonList();
             ViewBag.Error = "";
+            ViewBag.Name = name;
+            ViewBag.Hp = hp;
+            ViewBag.Rarity = rarity;
+
             //Validerar input värden
             if (name == null || (name.Length == 0 && hp == 0))
             {
@@ -63,13 +51,32 @@ namespace moment2.Controllers
                 //Lägger till ny Pokemon till Pokemonlistan
                 pokemonList.Add(new PokemonModel { name = name, hp = hp, rarity = rarity });
 
+                //Sparar Pokémon listan
                 SavePokemonList(pokemonList);
+
+                //Laddar om sidan
                 return RedirectToAction("Pokemon");
             }
 
             //Sätter Viewdata till Pokemon listan
             ViewData["pokemonList"] = pokemonList;
             return View("Pokemon");
+        }
+
+        //Spara Pokemon lista i pokemonCookien
+        private void SavePokemonList(List<PokemonModel> pokemonList)
+        {
+            //Serialiserar listan till json sträng
+            var pokemonListJson = JsonSerializer.Serialize(pokemonList);
+
+            //Lägger till Pokemon Cookie och uppdaterar pokemonList
+            HttpContext.Response.Cookies.Append("pokemonList", pokemonListJson, new CookieOptions
+            {
+                //Cookien går ut om 60min
+                Expires = DateTimeOffset.UtcNow.AddMinutes(60),
+                HttpOnly = true,
+                IsEssential = true
+            });
         }
     }
 }

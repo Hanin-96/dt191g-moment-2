@@ -36,8 +36,8 @@ namespace moment2
                 .WithStaticAssets();
 
             app.MapControllerRoute(
-                name: "convert",
-                pattern: "{controller=Convert}/{action=Convert}/{id?}")
+                name: "weight",
+                pattern: "{controller=Weight}/{action=Weight}/{id?}")
                 .WithStaticAssets();
 
             app.Run();

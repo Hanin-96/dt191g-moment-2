@@ -1,28 +1,32 @@
 ﻿@{
     ViewData["Title"] = "Pokémon";
+    string name = ViewBag.Name ?? "";
+    int hp = ViewBag.Hp ?? 0;
+    string rarity = ViewBag.Rarity ?? "";
+
 }
 
 <h1>@ViewData["Title"]</h1>
 
 <form action="PokemonPost" method="post">
     <label id="name">Titel:</label>
-    <input type="text" name="name" value="" />
+    <input type="text" name="name" value="@name" />
 
     <label id="hp">Hp:</label>
-    <input type="number" name="hp" value="" />
+    <input type="number" name="hp" value="@hp" />
+
+    @if (ViewBag.Error != null)
+    {
+        <p class="error-msg">@ViewBag.Error</p>
+    }
 
     <label id="rarity">Sällsynhet:</label>
-    <select name="rarity">
+    <select name="rarity" value="@rarity">
         <option value="Vanligt">Vanligt</option>
         <option value="Sällsynt">Sällsynt</option>
     </select>
 
     <input type="submit" value="Skicka" />
-
-    @if (ViewBag.Error != null)
-    {
-    <p>@ViewBag.Error</p>
-    }
 </form>
 
 @{

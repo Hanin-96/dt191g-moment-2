@@ -9,3 +9,7 @@
 .pokemon-text {
     font-weight: bold;
 }
+.error-msg {
+    color: red;
+    margin-bottom: 1rem;
+}
